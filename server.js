@@ -26,7 +26,7 @@ app.use("/public", express.static(path.join(__dirname, "public")))
 // File logging for PROD and console logging for TEST&DEV
 var loggerFormat = ':remote-addr - [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" :response-time ms'
 if (config.env == "DEV" || config.env == 'TEST') {
-    app.use(logger(loggerFormat))
+    app.use(logger('dev'))
 } else {
 
     var fs = require('fs')
