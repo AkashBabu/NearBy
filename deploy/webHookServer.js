@@ -1,11 +1,13 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+var logger = require("morgan")
 var config = require("../config/config")
 
 var port = config.deploy.webhook.port
 
 var app = express()
 
+app.use(logger('dev'))
 app.use(bodyParser.json({
     limit: '1mb'
 }))
@@ -19,7 +21,7 @@ app.post("/webhook", function(req, res) {
     if (event == config.deploy.webhook.event) {
         if (req.headers['x-hub-signature']) {
             var crypto = require('crypto')
-            var hmac = crypto.createHmac('sha1', deploy.webhook.secret)
+            var hmac = crypto.createHmac('sha1', config.deploy.webhook.secret)
             var computedSignature = hmac.update(Buffer.from(JSON.stringify(req.body), 'utf-8'), 'utf-8').digest('hex')
             if (req.headers['x-hub-signature'].split("=")[1] == computedSignature) {
                 var execFile = require("child_process").execFile;
