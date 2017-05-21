@@ -1,6 +1,8 @@
+var path = require("path");
 module.exports = {
     "env": "TEST", // Options TEST/DEV/PROD (Case sensitive)
     "app": { // Main Server configurations
+        "viewsDir": path.resolve('views'),
         "ports": {
             "TEST": 8090,
             "DEV": 8090,
@@ -12,6 +14,13 @@ module.exports = {
             "cookie": { // Compatibilty for Web
                 "secret": "7jkkjUIa90hjYUb2nbk"
             }
+        }
+    },
+    "deploy": {
+        "webhook": {
+            "port": 8080, // GIT webhook Port
+            "secret": "", // GIT WebHook Secret
+            "event": "push:NearBy:refs/heads/master"
         }
     },
     "db": { // DB configurations

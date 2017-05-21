@@ -5,7 +5,11 @@ chai.use(require("chai-http"));
 
 var agent = chai.request.agent(require("../server"))
 
-var config = require("../config/config")
+var path = require("path")
+global.config = require("../config/config")
+config.app.viewsDir = path.resolve("views")
+var viewsDir = config.app.viewsDir
+
 var db = require("mongojs")(config.db.mongo.urls[config.env])
 
 var regUser = {
@@ -14,8 +18,6 @@ var regUser = {
     pwd: "test"
 }
 
-var path = require("path")
-var viewsDir = path.resolve("../views")
 
 describe("#Portal", () => {
     before((done) => {
@@ -51,7 +53,7 @@ describe("#Portal", () => {
                 res.should.have.status(200)
                 res.headers['content-type'].should.be.eql("text/html; charset=utf-8")
 
-                res.text.should.be.eql(require('fs').readFileSync(viewsDir + "/index.html", 'utf-8'));
+                res.text.should.be.eql(require('fs').readFileSync(config.app.viewsDir + "/index.html", 'utf-8'));
 
                 done()
             })

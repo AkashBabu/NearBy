@@ -2,7 +2,8 @@ var router = require("express").Router();
 var fs = require('fs')
 var path = require("path")
 
-var viewsDir = __dirname + "/../views/";
+// var viewsDir = __dirname + "/../views/";
+var viewsDir = config.app.viewsDir;
 
 /**
  * This router serves pages from views folder.
