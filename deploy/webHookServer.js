@@ -58,22 +58,22 @@ function getEvent(req) {
             if (req.body.repository.name) {
                 reponame = req.body.repository.name;
             } else {
-                errLog.error('Undefined req.body.repository.name');
-                errLog.error('body:', req.body);
+                console.error('Undefined req.body.repository.name');
+                console.error('body:', req.body);
             }
         } else {
-            errLog.error('Undefined req.body.repository');
-            errLog.error('body:', req.body);
+            console.error('Undefined req.body.repository');
+            console.error('body:', req.body);
         }
 
         if (req.body.ref) {
             ref = req.body.ref;
         } else {
-            errLog.error('Undefined req.body.ref');
-            errLog.error('body:', req.body);
+            console.error('Undefined req.body.ref');
+            console.error('body:', req.body);
         }
     } else {
-        errLog.error('Undefined req.body');
+        console.error('Undefined req.body');
     }
 
     return type + ":" + reponame + ":" + ref
