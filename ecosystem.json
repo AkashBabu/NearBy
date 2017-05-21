@@ -1,0 +1,6 @@
+{
+    "apps": [{
+        "name": "NearBy Server",
+        "script": "./server.js"
+    }]
+}

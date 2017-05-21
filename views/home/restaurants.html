@@ -1,0 +1,20 @@
+<div flex style="overflow-y: auto;" layout="row" layout-align="center start" layout-wrap>
+    <md-card md-whiteframe="10" id="restaurant_overview{{$index}}" ng-repeat="restaurant in vm.restaurants" class="restaurant-overview" flex="70" flex-sm="35" flex-gt-sm="25" ng-click="vm.showRestaurantDetails(restaurant, $index)">
+        <img ng-src="{{::vm.getImgSrc(restaurant)}}" class="md-card-image" layout-fill alt="Restaurant Image">
+        <md-card-title>
+            <md-card-title-text style="width: 100%;">
+                <span md-truncate class="md-headline" ng-bind="::restaurant.name"></span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <span md-truncate class="vicinity" ng-bind="::restaurant.vicinity" style="width: 95%; display: block;"></span>
+            <div layout="row" layout-align="start center">
+                <jk-rating-stars max-rating="5" rating="::restaurant.rating" read-only="true" style="display: inline-block"></jk-rating-stars>&nbsp;
+                <span ng-bind="restaurant.rating"></span>
+            </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="start center" layout-padding>
+            {{::restaurant.distance.text}}, {{::restaurant.duration.text}}
+        </md-card-actions>
+    </md-card>
+</div>

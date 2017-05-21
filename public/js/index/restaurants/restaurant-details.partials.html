@@ -1,0 +1,44 @@
+<md-dialog class="restaurant-details" aria-label="Restaurant Details" flex="70" flex-sm="40" flex-gt-sm="30" flex-gt-lg="20">
+    <md-dialog-content>
+        <!--BODY-->
+        <md-card class="card" layout-fill>
+            <img ng-src="{{::dm.getImgSrc(restaurant)}}" class="md-card-image" layout-fill alt="Restaurant Image">
+            <md-card-title>
+                <md-card-title-text layout-fill layout="row" layout-align="start center">
+                    <md-button class="md-icon-button" ng-click="dm.navigateOnMap()" style="width: auto;">
+                        <md-icon md-colors="{color: 'default-red-500'}">place</md-icon>
+                    </md-button>
+                    <span md-truncate class="md-headline">{{::dm.restaurant.name}} ({{::dm.restaurant.distance.text}})</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <span md-truncate class="vicinity" ng-bind="::dm.restaurant.vicinity" style="width: 95%; display: block;"></span>
+                <div layout="row" layout-align="start center">
+                    <jk-rating-stars max-rating="5" rating="::dm.restaurant.rating" read-only="true" style="display: inline-block"></jk-rating-stars>&nbsp;
+                    <span ng-bind="dm.restaurant.rating"></span>
+                </div>
+                <md-divider flex></md-divider>
+                <div md-whiteframe="10" class="comments" layout-padding>
+                    <div layout="column" style="height: auto; max-height: 10em; overflow-y: auto;" ng-if="dm.comments && dm.comments.length">
+                        <div ng-repeat="comment in dm.comments">
+                            {{$index + 1}}. <span style="font-weight: bold;" ng-bind="comment.name"></span><br/>
+                            <span style="font-style: italic;" ng-bind="comment.comment"></span>
+                        </div>
+                        <md-divider flex></md-divider>
+                    </div>
+                </div>
+                <form class="write-comments" role="form" ng-submit="dm.submitComments(dm.myComment)" layout-fill>
+                    <div layout="row" layout-align="start center" layout-fill>
+                        <md-input-container flex>
+                            <label>Write a comment</label>
+                            <input ng-model="dm.myComment">
+                        </md-input-container>
+                        <div layout="column" layout-align="start center" layout-padding>
+                            <md-button class="md-raised md-primary" aria-label="Submit" ng-click="dm.submitComments(dm.myComment)" ng-disabled="!dm.myComment"> Submit </md-button>
+                        </div>
+                    </div>
+                </form>
+            </md-card-content>
+        </md-card>
+    </md-dialog-content>
+</md-dialog>

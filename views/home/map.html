@@ -1,0 +1,18 @@
+<!--Google maps-->
+<div id="map" layout-fill flex md-colors="{'background-color': 'default-red-50-0.3'}"></div>
+
+<div class="search-restaurant">
+    <md-button md-colors="{'background-color': 'default-warn-500-0.8'}" class="md-raised" md-ripple-size="partial" aria-label="Search Restaurants" href="#!/restaurants">
+        <span hide show-gt-sm>NearBy</span> Restaurants
+        <md-icon aria-label="Find Restaurants" class="material-icons">keyboard_arrow_right</md-icon>
+    </md-button>
+</div>
+
+<div class="my-location">
+    <md-button class="md-icon-button md-raised" ng-click="vm.placeMarkerInCenter()">
+        <md-tooltip md-direction="right">
+            Place Marker on Center
+        </md-tooltip>
+        <md-icon>navigation</md-icon>
+    </md-button>
+</div>
