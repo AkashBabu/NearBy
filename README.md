@@ -1,11 +1,14 @@
 # <img src="https://www.google.co.in/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=0ahUKEwjK5c7S7IDUAhXJro8KHQjuCtgQjRwIBw&url=http%3A%2F%2Fwww.iconsdb.com%2Fred-icons%2Fmap-marker-2-icon.html&psig=AFQjCNFLgkN9yPxAPW-DDHLHLoyPh4EuFw&ust=1495451369739489"> NearBy
 Web App that find the Restaurant nearby the given location.
+Live [Demo](http://52.39.13.152/)
 
 ### Server Setup 
 
 `Install required Softwares(Ubuntu16.04 AWS)`
 - Install [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)  
 - Install [Nodejs](https://www.liquidweb.com/kb/how-to-install-nvm-node-version-manager-for-node-js-on-ubuntu-14-04-lts/)  
+- Install Nginx 
+    > sudo apt-get install nginx
 
 - Get The Application
     > git clone https://github.com/AkashBabu/NearBy.git ~/
@@ -32,7 +35,7 @@ Edit config/config.js and change env: "PROD"
     * Add the WORKSPACE_ROOT folder in the first line
 * Execute the following commands
     > cd ${WORKSPACE_ROOT}/deploy  
-    > sudo chmod +x ./updateAndDeploy.sh  
+    > sudo chmod 0777 ./updateAndDeploy.sh  
     > node webHookServer.js
 * Create a WebHook in github (Use the port and secret mentioned in config/config.js file)
 
@@ -40,7 +43,15 @@ Edit config/config.js and change env: "PROD"
 > pm2 save  
 > pm2 startup    
 
-Then follow the instructions on the screen
+**Then follow the instructions on the screen
+
+`Proxy Server Setup`
+> sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bkup  
+> sudo cp ${WORKSPACE_ROOT}/nginx.conf /etc/nginx/  
+> sudo nginx -t  
+> sudo service nginx restart  
+
+**If Required you can change the configurations in nginx.conf to serve on different port or setup https configurations
 
 <hr/>
 
