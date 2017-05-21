@@ -20,8 +20,7 @@ app.set("view engine", "ejs")
 app.engine('html', require('ejs').renderFile)
 
 app.use("/dist", express.static(path.join(__dirname, "dist")))
-app.use("/public", express.static(path.join(__dirname, "public")))
-
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 // File logging for PROD and console logging for TEST&DEV
 var loggerFormat = ':remote-addr - [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" :response-time ms'
