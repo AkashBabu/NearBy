@@ -1,6 +1,6 @@
 var path = require("path");
 module.exports = {
-    "env": "TEST", // Options TEST/DEV/PROD (Case sensitive)
+    "env": "PROD", // Options TEST/DEV/PROD (Case sensitive)
     "app": { // Main Server configurations
         "viewsDir": path.resolve('views'),
         "ports": {
@@ -18,7 +18,7 @@ module.exports = {
     },
     "deploy": {
         "webhook": {
-            "port": 8080, // GIT webhook Port
+            "port": 9100, // GIT webhook Port
             "secret": "", // GIT WebHook Secret
             "event": "push:NearBy:refs/heads/master"
         }
