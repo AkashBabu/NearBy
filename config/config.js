@@ -19,7 +19,7 @@ module.exports = {
     "deploy": {
         "webhook": {
             "port": 9100, // GIT webhook Port
-            "secret": "", // GIT WebHook Secret
+            "secret": "asdfASDF@1234", // GIT WebHook Secret
             "event": "push:NearBy:refs/heads/master"
         }
     },
