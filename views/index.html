@@ -1,1 +1,51 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>NearBy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/dist/index/bundle.css">
+    <link rel="shortcut icon" href="/public/img/logo-icon.png">
+</head>
+
+<body ng-app="app" layout="column">
+
+    <md-toolbar ng-controller="navbarCtrl as vm" class="navbar" ng-cloak="ng-cloak" md-whiteframe="5">
+        <div class="md-toolbar-tools">
+            <div layout="row" layout-align="space-between center" layout-fill>
+                <span>
+                    <md-button aria-label="Goto prev view" class="md-icon-button" ng-click="vm.prevView()">
+                        <md-icon>chevron_left</md-icon>
+                    </md-button>
+                </span>
+                <div layout="row" layout-align="space-between center">
+                    <h1>
+                        <md-icon id="logo" aria-label="Logo" class="material-icons" md-colors="{color: 'default-red'}">place</md-icon>
+                        <span hide show-gt-sm>NearBy</span>
+                    </h1>
+                </div>
+                <div layout="row" layout-align="end">
+                    <md-menu md-offset="30 30" md-position-mode="target target">
+                        <md-button aria-label="label" class="md-icon-button" ng-click="$mdMenu.open()">
+                            <md-icon md-menu-origin class="material-icons md-accent">person</md-icon>
+                        </md-button>
+                        <md-menu-content width="2">
+                            <md-menu-item>
+                                <md-button aria-label="Logout" ng-click="vm.logout()">Logout</md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <div flex layout="column" class="view-container" id="view_container" ng-view></div>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.26&key=AIzaSyBXUX1ZR82hKZ5PMtIw36-IUFLD-p5Kpgc&libraries=places"></script>
+    <script src='/dist/index/bundle.js' charset='utf-8'></script>
+</body>
+
+</html>

@@ -2,29 +2,25 @@ var router = require("express").Router();
 var fs = require('fs')
 var path = require("path")
 
-var viewsDir = path.resolve("views")
+var viewsDir = __dirname + "/../views/";
 
-router.get("/:level1", function(req, res) {
-    var relFile = req.params.level1 + ".html"
+/**
+ * This router serves pages from views folder.
+ * So the path for the views/index.html file should be /portal/index
+ *      --> for views/home/map.html should be /portal/home/map
+ */
+router.get(/^\/(.*)/, function(req, res) {
+    var relFile = req.params[0] + ".html";
     var absFile = path.join(viewsDir, relFile)
-    testLog.log("ReqFile:", relFile);
-    testLog.log("absFile:", absFile)
+        // testLog.log('absfile:', absFile);
 
-    if(fs.existsSync(absFile)) {
-        res.render(relFile);
-    } else {
-        res.render("pageNotFound.html")
-    }
-})
-
-router.get("/:level1/:level2", function(req, res) {
-    var relFile = req.params.level1 + "/" +  req.params.level2 + ".html"
-     var absFile = path.join(viewsDir, relFile)
-    if(fs.existsSync(absFile)) {
-        res.render(relFile);
-    } else {
-        res.render("pageNotFound.html")
-    }
+    fs.stat(absFile, (err, stats) => {
+        if (!err && stats.isFile()) {
+            res.render(relFile)
+        } else {
+            res.render("pageNotFound.html");
+        }
+    })
 })
 
 module.exports = router;

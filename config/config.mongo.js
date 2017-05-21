@@ -1,8 +1,8 @@
 module.exports = {
-    "users" : {
-        collName: "users"
+    "users": {
+        "collName": "users"
     },
-    restaurants: {
-        collName: "restaurants"
+    "comments": {
+        "collName": "comments"
     }
 }

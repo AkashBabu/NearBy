@@ -1,9 +1,0 @@
-md-toolbar.navbar {
-  background: white !important;
-  color: pink;
-}
-
-md-toolbar.navbar>.md-toolbar-tools h1 {
-  font-size: 150%;
-  font-weight: bold;
-}
