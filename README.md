@@ -16,6 +16,8 @@ Web App that find the Restaurant nearby the given location.
 `Get The libraries`
 > cd ${WORKSPACE_ROOT}  
 > npm run install-prod-dep  
+
+Edit config/config.js and change env: "PROD"
 > git pull origin master  
 > npm run init-prod
 
@@ -29,7 +31,7 @@ Web App that find the Restaurant nearby the given location.
 * nano ${WORKSPACE_ROOT}/deploy/updateAndDeploy.sh
     * Add the WORKSPACE_ROOT folder in the first line
 * Execute the following commands
-    > cd ${WORKSPACE_ROOT}  
+    > cd ${WORKSPACE_ROOT}/deploy  
     > sudo chmod +x ./updateAndDeploy.sh  
     > node webHookServer.js
 * Create a WebHook in github (Use the port and secret mentioned in config/config.js file)
