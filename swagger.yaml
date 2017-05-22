@@ -1,0 +1,259 @@
+swagger: '2.0'
+info:
+  description: This is simple application that just finds the NearBy Restaurants
+  version: 1.0.0
+  title: NearBy
+  contact:
+    email: 001akashbabu@gmail.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+host: 'localhost:8090'
+basePath: /
+tags:
+  - name: User Management
+    description: Cookie sessions and JWT Tokens
+  - name: Comments
+    description: View/Share your thoughts about a restaurant
+schemes:
+  - http
+paths:
+  /login:
+    post:
+      tags:
+        - User Management
+      summary: Login into the portal
+      description: >-
+        This api would create a JWT cookie on response and also send the same to
+        the client(For mobile App Development)
+      operationId: login
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User Credentials
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        '200':
+          description: Login Success
+          schema:
+            $ref: '#/definitions/LoginSuccess'
+        default:
+          description: Invalid Email or Password
+          schema:
+            $ref: '#/definitions/ErrResponse'
+  /register:
+    post:
+      tags:
+        - User Management
+      summary: Register A New User
+      description: >-
+        This api would register a new User and create JWT cookie on response and
+        also send the same to the client(For mobile App Development)
+      operationId: register
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Register A New User
+          required: true
+          schema:
+            $ref: '#/definitions/Register'
+      responses:
+        '200':
+          description: New User Registered Successfully
+          schema:
+            $ref: '#/definitions/LoginSuccess'
+        default:
+          description: Email ID Has already been registered
+          schema:
+            $ref: '#/definitions/ErrResponse'
+  /logout:
+    get:
+      tags:
+        - User Management
+      summary: Logout and redirect to login page
+      description: ''
+      operationId: logout
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successfully Logged out
+          schema:
+            $ref: '#/definitions/Logout'
+  /api/comments:
+    post:
+      tags:
+        - Comments
+      summary: Write new comments or update the past
+      description: ''
+      operationId: createComment
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Add/Update a comment
+          schema:
+            $ref: '#/definitions/CreateComment'
+      responses:
+        '200':
+          description: Successfully Created a new Comment
+          schema:
+            $ref: '#/definitions/CreateCommentSuccess'
+        default:
+          description: Comment failed
+          schema:
+            $ref: '#/definitions/ErrResponse'
+  '/api/comments/:restaurantId':
+    get:
+      tags:
+        - Comments
+      summary: Get all the comments for a restaurant
+      description: ''
+      operationId: getComments
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/GetCommentsSuccess'
+        default:
+          description: Failed to Get Comments
+          schema:
+            $ref: '#/definitions/ErrResponse'
+definitions:
+  Login:
+    type: object
+    properties:
+      email:
+        type: string
+        format: email
+      pwd:
+        type: string
+    required:
+      - email
+      - pwd
+  LoginSuccess:
+    type: object
+    properties:
+      error:
+        type: boolean
+      data:
+        type: object
+        properties:
+          token:
+            type: string
+            description: JWT Token
+          expires:
+            type: string
+            format: date-time
+            description: Token will be invalid after this time
+          user:
+            type: object
+            properties:
+              name:
+                type: string
+                format: name
+              email:
+                type: string
+                format: email
+              _id:
+                type: string
+                description: MongoDB Document Identifier
+  Register:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+        format: email
+      pwd:
+        type: string
+    required:
+      - name
+      - email
+      - pwd
+  Logout:
+    type: object
+    properties:
+      error:
+        type: boolean
+      data:
+        type: string
+        description: Successfully Logged Out
+  CreateComment:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Restaurant id from google maps(place.id)
+      comment:
+        type: string
+        description: User entered Comments for the restaurant
+    required:
+      - id
+      - comment
+  CreateCommentSuccess:
+    type: object
+    properties:
+      _id:
+        type: string
+        description: MongoDB Document Identifier
+      id:
+        type: string
+        description: Restaurant id
+  GetCommentsSuccess:
+    type: object
+    properties:
+      error:
+        type: boolean
+      data:
+        type: object
+        properties:
+          _id:
+            type: string
+            description: MongoDB Document Identifier
+          id:
+            type: string
+            description: Restaurant id
+          comments:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                  format: name
+                  description: User name of the commenter
+                userId:
+                  type: string
+                  description: MongoDB ref to the User
+                comment:
+                  type: string
+  ErrResponse:
+    type: object
+    properties:
+      error:
+        type: boolean
+      data:
+        type: string
+        description: Error Reason
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
