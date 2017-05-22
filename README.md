@@ -2,58 +2,9 @@
 Web App that find the Restaurant nearby the given location.
 Live [Demo](http://52.39.13.152/)
 
-### Server Setup 
+For Production Deployment Click [here](https://github.com/AkashBabu/NearBy/wiki/Deployment)
 
-`Install required Softwares(Ubuntu16.04 AWS)`
-- Install [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)  
-- Install [Nodejs](https://www.liquidweb.com/kb/how-to-install-nvm-node-version-manager-for-node-js-on-ubuntu-14-04-lts/)  
-- Install Nginx 
-    > sudo apt-get install nginx
-
-- Get The Application
-    > git clone https://github.com/AkashBabu/NearBy.git ~/
-
-<hr/>
-
-### Production Deployment
-`Get The libraries`
-> cd ${WORKSPACE_ROOT}  
-> npm run install-prod-dep  
-
-Edit config/config.js and change env: "PROD"
-> git pull origin master  
-> npm run init-prod
-
-`Continuous Integeration(CI)`  
-*Steps followed here are w.r.t Git WebHooks. For a stronger CI, I would recommend to go with Jenkins or Docker build.*
-
-* nano ${WORKSPACE_ROOT}/config/config.js
-    * Edit deploy.webhook.secret to some confidential random String
-    * Edit deploy.webhook.port to the required port (Open to public access)
-    * Edit deploy.webhook.event to capture the required event (format event:reponame:ref)
-* nano ${WORKSPACE_ROOT}/deploy/updateAndDeploy.sh
-    * Add the WORKSPACE_ROOT folder in the first line
-* Execute the following commands
-    > cd ${WORKSPACE_ROOT}/deploy  
-    > sudo chmod 0777 ./updateAndDeploy.sh  
-    > node webHookServer.js
-* Create a WebHook in github (Use the port and secret mentioned in config/config.js file)
-
-`Startup Script`
-> pm2 save  
-> pm2 startup    
-
-**Then follow the instructions on the screen
-
-`Proxy Server Setup`
-> sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bkup  
-> sudo cp ${WORKSPACE_ROOT}/nginx.conf /etc/nginx/  
-> sudo nginx -t  
-> sudo service nginx restart  
-
-**If Required you can change the configurations in nginx.conf to serve on different port or setup https configurations
-
-<hr/>
+For Application Structure [Visit](https://github.com/AkashBabu/NearBy/blob/master/AppStructure.md)
 
 ### Development
 `Get The libraries`
@@ -103,49 +54,4 @@ Edit config/config.js and change env: "PROD"
     * User friendly flow
     * Manually Tested on IE10, Chrome, Firefox, Tablet and Phone
 
-### Application Structure
-```
-    -- folder, - file
 
-
-    -- config/
-        - config.js (General Configuration Settings)
-        - config.mongo.js (MongoDB collection Names)
-        - init.globals.js (Initializes global variables)
-    -- deploy/
-        - updateAndDeploy.sh (Script to update and restart the running application)
-        - webHookServer.js (WebHook-Server that capture git-webhook events)
-    -- lib/
-        -- db/
-            mongoConn.js (Creates and checks connection periodically and retries on connection failure)
-        - logger.js (Different type of logging for Each environment. Optionally can also be turned OFF)
-        - middleware.js (Middlewares for session creation and handling)
-    -- public/
-        -- css/ (All style.css files required for Web)
-        -- img/ (All images required for Web)
-        -- js/
-            -- index/
-                -- (*components*)/
-                - app.es6 (main angular app file)
-            -- login/ 
-                - app.es6
-    -- routers/
-        -- routes/
-            -- (*api*)/ (Below are the general implementation that would be followed)
-                - index.js (main file)
-                - create.js (Handle POST /)
-                - get.js (Handle GET /:id)
-                - list.js (Handle GET /)
-                - update.js (Handle PUT /:id)
-                - remove.js (Handle DELETE /:id)
-        - api.js (Routes all requests on /api)
-        - portal.js (Server html files for requests on /portal/)
-    -- test/
-        - (*component*).js
-    -- views/
-        - login.html
-        - index.html
-        - pageNotFound.html
-
-    - server.js (Main Express Application file)
-```
